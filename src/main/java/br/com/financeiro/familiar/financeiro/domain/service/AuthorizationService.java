@@ -1,6 +1,7 @@
 package br.com.financeiro.familiar.financeiro.domain.service;
 
-import br.com.financeiro.familiar.financeiro.domain.repository.UsuarioRepository;
+
+import br.com.financeiro.familiar.financeiro.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,10 +12,9 @@ import org.springframework.stereotype.Service;
 public class AuthorizationService implements UserDetailsService {
 
     @Autowired
-    private UsuarioRepository repository;
-
+    UserRepository repository;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return repository.findByUsuario(username);
+        return repository.findByLogin(username);
     }
 }

@@ -1,13 +1,12 @@
 package br.com.financeiro.familiar.financeiro.domain.enums;
 
-public enum UsuarioRole {
-
+public enum UserRole {
     ADMIN("admin"),
     USER("user");
 
     private String role;
 
-    UsuarioRole(String role){
+    UserRole(String role){
         this.role = role;
     }
 

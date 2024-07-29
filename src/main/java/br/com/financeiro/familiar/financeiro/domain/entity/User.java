@@ -1,51 +1,47 @@
 package br.com.financeiro.familiar.financeiro.domain.entity;
 
-import br.com.financeiro.familiar.financeiro.domain.enums.UsuarioRole;
+import br.com.financeiro.familiar.financeiro.domain.enums.UserRole;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
 
-@Entity(name = "usuario")
-@Table(name = "usuario")
+@Table(name = "users")
+@Entity(name = "users")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Usuario implements UserDetails {
-
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
+    private String login;
+    private String password;
+    private UserRole role;
 
-    private String usuario;
-
-    private String senha;
-
-    private UsuarioRole role;
-
-    public Usuario(String usuario, String senha, UsuarioRole role) {
-        this.usuario = usuario;
-        this.senha = senha;
+    public User(String login, String password, UserRole role){
+        this.login = login;
+        this.password = password;
         this.role = role;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
-    }
-
-    @Override
-    public String getPassword() {
-        return senha;
+        if(this.role == UserRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+        else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override
     public String getUsername() {
-        return usuario;
+        return login;
     }
 
     @Override
