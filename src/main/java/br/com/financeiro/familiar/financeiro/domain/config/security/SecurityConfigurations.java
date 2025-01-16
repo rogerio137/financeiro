@@ -29,9 +29,9 @@ public class SecurityConfigurations {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/teste").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST,"/api/cartao/salvar").permitAll()
-                        .requestMatchers(HttpMethod.POST,"/api/extrato/salvar").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/teste").authenticated()
+                        .requestMatchers(HttpMethod.POST,"/api/cartao/salvar").authenticated()
+                        .requestMatchers(HttpMethod.POST,"/api/extrato/salvar").authenticated()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
@@ -42,7 +42,6 @@ public class SecurityConfigurations {
     public WebSecurityCustomizer webSecurityCustomizer(){
         return (web) -> web.ignoring()
                 .requestMatchers("/swagger-ui/**")
-                .requestMatchers("/teste")
                 .requestMatchers("/v3/api-docs/**");
     }
 
