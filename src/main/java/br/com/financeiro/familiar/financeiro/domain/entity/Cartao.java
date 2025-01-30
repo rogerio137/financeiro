@@ -36,4 +36,7 @@ public class Cartao {
         this.limite = limite;
     }
 
+    public Cartao(UUID uuid) {
+        this.uuid = uuid;
+    }
 }
