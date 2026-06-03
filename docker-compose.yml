@@ -12,6 +12,7 @@ services:
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: root
 
+
   postgres:
     image: postgres:15
     container_name: postgres
